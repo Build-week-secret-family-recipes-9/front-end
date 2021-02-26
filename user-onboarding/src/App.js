@@ -4,6 +4,8 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./components/Home";
+import UpdateRecipe from "./components/UpdateRecipe";
+import RecipeList from "./components/RecipeList";
 import { RecipesContext } from "./contexts/RecipesContext";
 import { axiosWithAuth } from "./utils/axiosWithAuth";
 import "./App.css";
@@ -29,6 +31,8 @@ function App() {
       >
         <Switch>
           <ProtectedRoute path="/" component={Home} />
+          <ProtectedRoute path="/recipes" component={RecipeList} />
+          <ProtectedRoute path="/edit-recipe" component={UpdateRecipe} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
         </Switch>
