@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect, useContext } from "react";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
+
+import { RecipesContext } from "../contexts/RecipesContext";
 
 const RecipeList = () => {
-  const [recipeList, setRecipeList] = useState([]);
-
+  const { recipeList, setRecipeList, deleteRecipe } = useContext(
+    RecipesContext
+  );
   useEffect(() => {
-    axios
+    axiosWithAuth()
       .get("localhost:3000") // change to GET endpoint
       .then((res) => {
         console.log(res);
@@ -16,7 +19,11 @@ const RecipeList = () => {
       });
   }, []);
 
-  return <div>// MAP method over recipeList to display the recipes</div>;
+  return (
+    <div>
+      <div>// MAP method over recipeList to display the recipes</div>
+    </div>
+  );
 };
 
 export default RecipeList;

@@ -1,19 +1,38 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./components/Home";
+import { RecipesContext } from "./contexts/RecipesContext";
+import { axiosWithAuth } from "./utils/axiosWithAuth";
 import "./App.css";
 
 function App() {
+  const [recipeList, setRecipeList] = useState([]);
+
+  const deleteRecipe = (id) => {
+    axiosWithAuth()
+      .delete("localhost:3000")
+      .then((res) => {
+        console.log(res);
+        const newList = recipeList.filter((item) => id !== item.id);
+        setRecipeList(newList);
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className="App">
-      <Switch>
-        <ProtectedRoute path="/" component={Home} />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-      </Switch>
+      <RecipesContext.Provider
+        value={{ recipeList, setRecipeList, deleteRecipe }}
+      >
+        <Switch>
+          <ProtectedRoute path="/" component={Home} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+        </Switch>
+      </RecipesContext.Provider>
     </div>
   );
 }
