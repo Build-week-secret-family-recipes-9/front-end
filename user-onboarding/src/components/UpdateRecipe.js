@@ -3,7 +3,7 @@ import { RecipesContext } from "../contexts/RecipesContext";
 import axios from "axios";
 import { useParams, useHistory } from "react-router-dom";
 
-initialState = {
+const initialState = {
   title: "",
   source: "",
   ingredients: "",

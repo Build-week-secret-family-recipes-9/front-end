@@ -5,13 +5,13 @@ const ProtectedRoute = ({ component: Component, ...theRest }) => {
   return (
     <Route
       {...theRest}
-      render={(props) => {
+      render={(props) =>
         localStorage.getItem("token") ? (
           <Component {...props} />
         ) : (
           <Redirect to="/login" />
-        );
-      }}
+        )
+      }
     />
   );
 };

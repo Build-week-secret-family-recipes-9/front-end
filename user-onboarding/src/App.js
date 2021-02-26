@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -29,13 +29,11 @@ function App() {
       <RecipesContext.Provider
         value={{ recipeList, setRecipeList, deleteRecipe }}
       >
-        <Switch>
-          <ProtectedRoute path="/" component={Home} />
-          <ProtectedRoute path="/recipes" component={RecipeList} />
-          <ProtectedRoute path="/edit-recipe" component={UpdateRecipe} />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-        </Switch>
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
+        <ProtectedRoute exact path="/" component={Home} />
+        <ProtectedRoute path="/recipes" component={RecipeList} />
+        <ProtectedRoute path="/edit-recipe" component={UpdateRecipe} />
       </RecipesContext.Provider>
     </div>
   );
