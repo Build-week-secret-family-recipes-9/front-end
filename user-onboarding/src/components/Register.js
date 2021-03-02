@@ -23,31 +23,40 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      <form onSubmit={submitHandler}>
-        <label htmlFor="username">Username</label>
-        <input
-          id="username"
-          name="username"
-          placeholder="username123"
-          value={credentials.username}
-          onChange={changeHandler}
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={credentials.password}
-          onChange={changeHandler}
-        />
-        <button>Log In</button>
-      </form>
-
-      <div>
-        Already have an account? Log in <Link to="/login">here</Link>
+    <div className="register-container">
+      <h2 className="title">Register</h2>
+      <div className="main-container">
+        <form onSubmit={submitHandler} className="form-container">
+          <div className="input-container">
+            <div className="username-container">
+              <label htmlFor="username">Username</label>
+              <input
+                id="username"
+                name="username"
+                placeholder="username123"
+                value={credentials.username}
+                onChange={changeHandler}
+              />
+            </div>
+            <div className="password-container">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={credentials.password}
+                onChange={changeHandler}
+              />
+            </div>
+            <button className="submit-button">Log In</button>
+          </div>
+        </form>
       </div>
+      <section className="bottom-container">
+        <h2 className="new-here">
+          Already have an account? <Link to="/login">Log in!</Link>
+        </h2>
+      </section>
     </div>
   );
 };
