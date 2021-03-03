@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+import SimpleReactValidator from "simple-react-validator";
 
 const Register = () => {
   const [credentials, setCredentials] = useState({
@@ -8,18 +9,27 @@ const Register = () => {
     password: "",
   });
 
+  const simpleValidator = new SimpleReactValidator();
+
   const changeHandler = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    axiosWithAuth()
-      .post("/register", credentials)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
+    if (simpleValidator.allValid()) {
+      axiosWithAuth()
+        .post(
+          "https://git.heroku.com/family-recipes-9.git/api/auth/register",
+          credentials
+        )
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      simpleValidator.showMessages();
+    }
   };
 
   return (
@@ -36,7 +46,13 @@ const Register = () => {
                 placeholder="username123"
                 value={credentials.username}
                 onChange={changeHandler}
+                onBlur={simpleValidator.showMessageFor("username")}
               />
+              {simpleValidator.message(
+                "username",
+                credentials.username,
+                "required|alpha_num|min:4|max:15"
+              )}
             </div>
             <div className="password-container">
               <label htmlFor="password">Password</label>
@@ -46,9 +62,15 @@ const Register = () => {
                 name="password"
                 value={credentials.password}
                 onChange={changeHandler}
+                onBlur={simpleValidator.showMessageFor("password")}
               />
+              {simpleValidator.message(
+                "password",
+                credentials.password,
+                "required|alpha_num|min:4|max:15"
+              )}
             </div>
-            <button className="submit-button">Log In</button>
+            <button className="submit-button">Register</button>
           </div>
         </form>
       </div>

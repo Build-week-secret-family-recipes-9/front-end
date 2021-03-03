@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 import "../styles/LoginAndRegister.css";
+import SimpleReactValidator from "simple-react-validator";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
@@ -10,18 +11,27 @@ const Login = () => {
     password: "",
   });
 
+  const simpleValidator = new SimpleReactValidator();
+
   const changeHandler = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    axiosWithAuth()
-      .post("/login", credentials)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
+    if (simpleValidator.allValid()) {
+      axiosWithAuth()
+        .post(
+          "https://git.heroku.com/family-recipes-9.git/api/auth/login",
+          credentials
+        )
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      simpleValidator.showMessages();
+    }
   };
 
   return (
@@ -38,7 +48,13 @@ const Login = () => {
                 placeholder="username123"
                 value={credentials.username}
                 onChange={changeHandler}
+                onBlur={simpleValidator.showMessageFor("username")}
               />
+              {simpleValidator.message(
+                "username",
+                credentials.username,
+                "required|alpha_num|min:4|max:15"
+              )}
             </div>
             <div className="password-container">
               <label htmlFor="password">Password</label>
@@ -47,9 +63,16 @@ const Login = () => {
                 id="password"
                 name="password"
                 value={credentials.password}
+                placeholder="password123"
                 onChange={changeHandler}
+                onBlur={simpleValidator.showMessageFor("password")}
               />
             </div>
+            {simpleValidator.message(
+              "password",
+              credentials.password,
+              "required|alpha_num|min:4|max:15"
+            )}
             <button className="submit-button">Log In</button>
           </div>
         </form>
