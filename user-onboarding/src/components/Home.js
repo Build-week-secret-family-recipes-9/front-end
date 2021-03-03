@@ -19,7 +19,7 @@ const Home = () => {
       <button
         onClick={() => {
           localStorage.clear();
-          push("/");
+          push("/login");
         }}
       >
         Log out

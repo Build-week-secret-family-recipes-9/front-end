@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Route } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -15,7 +15,7 @@ function App() {
 
   const deleteRecipe = (id) => {
     axiosWithAuth()
-      .delete("localhost:3000")
+      .delete(`localhost:3000/${id}`)
       .then((res) => {
         console.log(res);
         const newList = recipeList.filter((item) => id !== item.id);
@@ -33,7 +33,7 @@ function App() {
         <Route path="/register" component={Register} />
         <ProtectedRoute exact path="/" component={Home} />
         <ProtectedRoute path="/recipes" component={RecipeList} />
-        <ProtectedRoute path="/edit-recipe" component={UpdateRecipe} />
+        <ProtectedRoute path="/edit-recipe/:id" component={UpdateRecipe} />
       </RecipesContext.Provider>
     </div>
   );
