@@ -61,6 +61,7 @@ const Register = () => {
                 id="password"
                 name="password"
                 value={credentials.password}
+                placeholder="password123"
                 onChange={changeHandler}
                 onBlur={simpleValidator.showMessageFor("password")}
               />
