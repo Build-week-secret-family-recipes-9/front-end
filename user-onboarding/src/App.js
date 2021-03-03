@@ -6,6 +6,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./components/Home";
 import UpdateRecipe from "./components/UpdateRecipe";
 import RecipeList from "./components/RecipeList";
+import NewRecipe from "./components/NewRecipe";
 import { RecipesContext } from "./contexts/RecipesContext";
 import { axiosWithAuth } from "./utils/axiosWithAuth";
 import "./App.css";
@@ -32,6 +33,7 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <ProtectedRoute exact path="/" component={Home} />
+        <Route path="/add-recipe" component={NewRecipe} />
         <ProtectedRoute path="/recipes" component={RecipeList} />
         <ProtectedRoute path="/edit-recipe/:id" component={UpdateRecipe} />
       </RecipesContext.Provider>
