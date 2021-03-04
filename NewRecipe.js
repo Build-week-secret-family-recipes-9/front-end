@@ -13,6 +13,19 @@ const NewRecipe = () => {
         Img: ''
     })
 
+    const [buttonDisabled, setButtonDisabled] = useState(false)
+
+    const [recipes, setRecipes] = useState([])
+
+    const [errors, setErrors] = useState({
+        Title: '',
+        Source: '',
+        Ingredients: '',
+        Instructions: '',
+        Category: '',
+        Img: ''
+    })
+
     const recipeSchema=yup.object().shape({
         Title: yup
         .string()
@@ -51,13 +64,61 @@ const NewRecipe = () => {
         Img:'https://th.bing.com/th/id/R0bfc9b8b90712940018a452f9cadb9dd?rik=rAeASh9rTmhBqg&riu=http%3a%2f%2flifeinleggings.com%2fwp-content%2fuploads%2f2013%2f09%2fapples-slices-1024x806.jpg&ehk=BpEjfxAdcU9luSjh0U5mN4dh3uCJqG5ngTjvZavuNZk%3d&risl=&pid=ImgRaw',
     });
 
+    const completeRecipe = () => {
+        recipeSchema.isValid(formState)
+        .then(isValid => {
+            setButtonDisabled(!isValid)
+        })
+    }
+
+    const validateChange = event => {
+        yup
+        .reach(recipeSchema, event.target.name)
+        .validate(event.target.value)
+        .then(valid => {
+            setErrors({
+                ...errors,
+                [event.target.name]: ''
+            })
+        })
+        .catch(error => {
+            setErrors({
+                ...errors,
+                [event.target.name]: error.errors[0]
+            })
+        })
+    }
+
+    useEffect(completeRecipe, [formState])
+
     const changeHandler = event => {
         event.persist()
         const FormData = {
             ...formState,
             [event.target.name]: event.target.value
         }
+        validateChange(event)
         setFormState(FormData)
+    }
+
+    const formSubmit = event => {
+        event.preventDefault()
+        axios
+        .post('webpage', formState)
+        .then(response => {
+            setRecipes([...recipes, response.data])
+            setFormState({
+                Title: '',
+                Source: '',
+                Ingredients: '',
+                Instructions: '',
+                Category: '',
+                Img: ''
+            })
+        })
+        .catch(error => {
+            console.log(error.response)
+        })
     }
 
 
@@ -123,7 +184,7 @@ const NewRecipe = () => {
                 onChange={changeHandler}
             /> 
             </label>
-            <button type='submit'>Submit Recipe!</button>
+            <button type='submit' disabled={buttonDisabled}>Submit Recipe!</button>
         </form>
     )
 }
