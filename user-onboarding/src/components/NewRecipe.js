@@ -104,7 +104,7 @@ const NewRecipe = () => {
     const formSubmit = event => {
         event.preventDefault()
         axios
-        .post('webpage', formState)
+        .post('/api/recipes', formState)
         .then(response => {
             setRecipes([...recipes, response.data])
             setFormState({
