@@ -11,6 +11,18 @@ import { RecipesContext } from "./contexts/RecipesContext";
 import { axiosWithAuth } from "./utils/axiosWithAuth";
 import "./App.css";
 
+// const data = [
+//   {
+//     id: Date.now(),
+//     title: "Cheese Pizza",
+//     source: "My mom",
+//     ingredients: "Cheese, Bread",
+//     instructions: "Cook It",
+//     category: "Italian",
+//     img: "Picture",
+//   },
+// ];
+
 function App() {
   const [recipeList, setRecipeList] = useState([]);
 

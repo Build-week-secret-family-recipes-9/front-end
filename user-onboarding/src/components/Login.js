@@ -26,8 +26,7 @@ const Login = () => {
         .post("http://localhost:5500/api/auth/login", credentials)
         .then((res) => {
           console.log(res);
-
-          localStorage.setItem("token", res.data.payload);
+          localStorage.setItem("token", res.data.token);
           push("/");
         })
         .catch((err) => console.log(err));

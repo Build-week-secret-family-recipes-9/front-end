@@ -9,8 +9,10 @@ const RecipeList = () => {
     RecipesContext
   );
   const [isLoading, setIsLoading] = useState(false);
-  const [filteredRecipes, setFilteredRecipes] = useState({});
+  const [filteredRecipes, setFilteredRecipes] = useState();
   const { push } = useHistory();
+
+  console.log(recipeList);
 
   useEffect(() => {
     setIsLoading(true);
@@ -76,8 +78,8 @@ const RecipeList = () => {
       </form>
       <div>
         {/* MAP method over recipeList to display the recipes */}
-        {filteredRecipes.length > 0
-          ? filteredRecipes.map((item) => {
+        {filteredRecipes?.length > 0
+          ? filteredRecipes?.map((item) => {
               return (
                 <div className="recipe-card">
                   <h2>{item.title}</h2>

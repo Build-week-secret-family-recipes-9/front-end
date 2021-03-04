@@ -36,12 +36,11 @@ const NewRecipe = () => {
 
     Category: yup.string().required("Recipe needs a category"),
 
-    Img: yup
-      .string()
-      .matches(
-        /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
-        "Enter correct url!"
-      ),
+    Img: yup.string().required("Recipe needs a picture"),
+    // .matches(
+    //   /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
+    //   "Enter correct url!"
+    // ),
   });
 
   // recipeSchema.isValid({
@@ -105,13 +104,13 @@ const NewRecipe = () => {
         return clearErrors();
       }
       const resp = await axiosWithAuth().post(
-        "http://localhost:4200/api/posts",
+        "http://localhost:5500/api/recipes",
         formState
       );
       console.log(resp.data);
       push("/recipes");
     } catch (err) {
-      console.log(err);
+      console.error({ err });
       setErrors({ ...errors, message: "Account information not valid" });
       clearErrors();
     }

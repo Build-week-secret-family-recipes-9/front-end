@@ -24,10 +24,10 @@ const Register = () => {
         .post("http://localhost:5500/api/auth/register", credentials)
         .then((res) => {
           console.log(res);
-          localStorage.setItem("token", res.data.payload);
+          localStorage.setItem("token", res.data.token);
           push("/");
         })
-        .catch((err) => console.error(err.message));
+        .catch((err) => console.error({ err }));
     } else {
       simpleValidator.showMessages();
     }
