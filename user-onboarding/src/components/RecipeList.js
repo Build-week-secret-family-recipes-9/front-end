@@ -21,9 +21,12 @@ const RecipeList = () => {
         setRecipeList(res.data);
         setIsLoading(false);
       })
-      .catch((err) => {
-        console.error({ err });
-      }, []);
+      .catch(
+        (err) => {
+          console.error({ err });
+        },
+        [setRecipeList]
+      );
   });
 
   const filteredRecipeList = (e) => {
@@ -47,7 +50,6 @@ const RecipeList = () => {
             return recipe;
           }
         }
-        return searchResults;
       });
       searchResults = searchResults.filter((item) => item !== undefined);
       if (searchResults.length < 1) {
