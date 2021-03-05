@@ -27,8 +27,9 @@ function App() {
   const [recipeList, setRecipeList] = useState([]);
 
   const deleteRecipe = (id) => {
+    console.log(id);
     axiosWithAuth()
-      .delete(`localhost:3000/${id}`)
+      .delete(`http://localhost:5075/api/recipes/${id}`)
       .then((res) => {
         console.log(res);
         const newList = recipeList.filter((item) => id !== item.id);

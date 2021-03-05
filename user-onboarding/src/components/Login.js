@@ -23,7 +23,7 @@ const Login = () => {
     e.preventDefault();
     if (simpleValidator.allValid()) {
       axiosWithAuth()
-        .post("http://localhost:5500/api/auth/login", credentials)
+        .post("http://localhost:5075/api/auth/login", credentials)
         .then((res) => {
           console.log(res);
           localStorage.setItem("token", res.data.token);

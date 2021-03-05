@@ -5,52 +5,48 @@ import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const NewRecipe = () => {
   const [formState, setFormState] = useState({
-    Title: "",
-    Source: "",
-    Ingredients: "",
-    Instructions: "",
-    Category: "",
-    Img: "",
+    title: "",
+    source: "",
+    ingredients: "",
+    instructions: "",
+    category: "",
+    img: "",
   });
 
   const [errors, setErrors] = useState({
-    Title: "",
-    Source: "",
-    Ingredients: "",
-    Instructions: "",
-    Category: "",
-    Img: "",
+    title: "",
+    source: "",
+    ingredients: "",
+    instructions: "",
+    category: "",
+    img: "",
     message: "",
   });
 
   const { push } = useHistory();
 
   const recipeSchema = yup.object().shape({
-    Title: yup.string().required("Recipe needs a title"),
+    title: yup.string().required("Recipe needs a title"),
 
-    Source: yup.string().required("Recipe needs a source"),
+    source: yup.string().required("Recipe needs a source"),
 
-    Ingredients: yup.string().required("Recipe needs at least one ingredient"),
+    ingredients: yup.string().required("Recipe needs at least one ingredient"),
 
-    Instructions: yup.string().required("Recipe needs instructions"),
+    instructions: yup.string().required("Recipe needs instructions"),
 
-    Category: yup.string().required("Recipe needs a category"),
+    category: yup.string().required("Recipe needs a category"),
 
-    Img: yup.string().required("Recipe needs a picture"),
-    // .matches(
-    //   /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
-    //   "Enter correct url!"
-    // ),
+    img: yup.string().required("Recipe needs an image"),
   });
 
   // recipeSchema.isValid({
-  //   Title: "Apples",
-  //   Source: "Grandma",
-  //   Ingredients: "4-6 Apples",
-  //   Instructions:
+  //   title: "Apples",
+  //   source: "Grandma",
+  //   ingredients: "4-6 Apples",
+  //   instructions:
   //     "Slice apples, removing the core and stem. Serve apples on a plate",
-  //   Category: "Snack",
-  //   Img:
+  //   category: "Snack",
+  //   img:
   //     "https://th.bing.com/th/id/R0bfc9b8b90712940018a452f9cadb9dd?rik=rAeASh9rTmhBqg&riu=http%3a%2f%2flifeinleggings.com%2fwp-content%2fuploads%2f2013%2f09%2fapples-slices-1024x806.jpg&ehk=BpEjfxAdcU9luSjh0U5mN4dh3uCJqG5ngTjvZavuNZk%3d&risl=&pid=ImgRaw",
   // });
 
@@ -73,12 +69,12 @@ const NewRecipe = () => {
     setTimeout(() => {
       console.log("trying to clear");
       setErrors({
-        Title: "",
-        Source: "",
-        Ingredients: "",
-        Instructions: "",
-        Category: "",
-        Img: "",
+        title: "",
+        source: "",
+        ingredients: "",
+        instructions: "",
+        category: "",
+        img: "",
         message: "",
       });
     }, 5000);
@@ -97,6 +93,7 @@ const NewRecipe = () => {
 
   const formSubmit = async (e) => {
     e.preventDefault();
+    console.log(formState);
     try {
       const isValid = await recipeSchema.isValid(formState);
       if (!isValid) {
@@ -104,7 +101,7 @@ const NewRecipe = () => {
         return clearErrors();
       }
       const resp = await axiosWithAuth().post(
-        "http://localhost:5500/api/recipes",
+        "http://localhost:5075/api/recipes",
         formState
       );
       console.log(resp.data);
@@ -125,76 +122,76 @@ const NewRecipe = () => {
           <input
             id="img"
             type="text"
-            name="Img"
-            value={formState.Img}
+            name="img"
+            value={formState.img}
             onChange={changeHandler}
           />
-          {errors.Img.length > 0 ? <p className="error">{errors.Img}</p> : null}
+          {errors.img.length > 0 ? <p className="error">{errors.img}</p> : null}
           <br />
         </label>
         <label htmlFor="title">
-          Title
+          title
           <input
             id="title"
             type="text"
-            name="Title"
-            value={formState.Title}
+            name="title"
+            value={formState.title}
             onChange={changeHandler}
           />
-          {errors.Title.length > 0 ? (
-            <p className="error">{errors.Title}</p>
+          {errors.title.length > 0 ? (
+            <p className="error">{errors.title}</p>
           ) : null}
           <br />
         </label>
         <label htmlFor="source">
-          Source
+          source
           <input
             id="source"
             type="text"
-            name="Source"
-            value={formState.Source}
+            name="source"
+            value={formState.source}
             onChange={changeHandler}
           />
-          {errors.Source.length > 0 ? (
-            <p className="error">{errors.Source}</p>
+          {errors.source.length > 0 ? (
+            <p className="error">{errors.source}</p>
           ) : null}
           <br />
         </label>
         <label htmlFor="ingredients">
-          Ingredients
+          ingredients
           <input
             id="ingredients"
             type="text"
-            name="Ingredients"
-            value={formState.Ingredients}
+            name="ingredients"
+            value={formState.ingredients}
             onChange={changeHandler}
           />
-          {errors.Ingredients.length > 0 ? (
-            <p className="error">{errors.Ingredients}</p>
+          {errors.ingredients.length > 0 ? (
+            <p className="error">{errors.ingredients}</p>
           ) : null}
           <br />
         </label>
         <label htmlFor="instructions">
-          Instructions
+          instructions
           <input
             id="instructions"
             type="text"
-            name="Instructions"
-            value={formState.Instructions}
+            name="instructions"
+            value={formState.instructions}
             onChange={changeHandler}
           />
         </label>
         <label htmlFor="category">
-          Category
+          category
           <input
             id="category"
             type="text"
-            name="Category"
-            value={formState.Category}
+            name="category"
+            value={formState.category}
             onChange={changeHandler}
           />
-          {errors.Category.length > 0 ? (
-            <p className="error">{errors.Category}</p>
+          {errors.category.length > 0 ? (
+            <p className="error">{errors.category}</p>
           ) : null}
           <br />
         </label>

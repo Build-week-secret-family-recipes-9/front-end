@@ -21,11 +21,11 @@ const Register = () => {
     e.preventDefault();
     if (simpleValidator.allValid()) {
       axiosWithAuth()
-        .post("http://localhost:5500/api/auth/register", credentials)
+        .post("http://localhost:5075/api/auth/register", credentials)
         .then((res) => {
-          console.log(res);
+          console.log(res.data);
           localStorage.setItem("token", res.data.token);
-          push("/");
+          push("/login");
         })
         .catch((err) => console.error({ err }));
     } else {
