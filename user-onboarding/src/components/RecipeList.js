@@ -23,7 +23,7 @@ const RecipeList = () => {
       })
       .catch((err) => {
         console.error({ err });
-      });
+      }, []);
   });
 
   const filteredRecipeList = (e) => {
