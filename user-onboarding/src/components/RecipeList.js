@@ -12,6 +12,8 @@ const RecipeList = () => {
   const [filteredRecipes, setFilteredRecipes] = useState();
   const { push } = useHistory();
 
+  setFilteredRecipes([]);
+
   // useEffect(() => {
   //   setIsLoading(true);
   //   axiosWithAuth()
