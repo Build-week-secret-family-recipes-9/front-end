@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { RecipesContext } from "../contexts/RecipesContext";
+// import { RecipesContext } from "../contexts/RecipesContext";
 import { useParams, useHistory } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
@@ -13,7 +13,7 @@ const initialState = {
 };
 
 const UpdateRecipe = () => {
-  const { recipeList, setRecipeList } = useContext(RecipesContext);
+  // const { recipeList, setRecipeList } = useContext(RecipesContext);
   const [recipeToUpdate, setRecipeToUpdate] = useState(initialState);
   const { id } = useParams();
   const { push } = useHistory();
@@ -29,7 +29,7 @@ const UpdateRecipe = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  });
 
   const changeHandler = (e) => {
     setRecipeToUpdate({ ...recipeToUpdate, [e.target.name]: e.target.value });

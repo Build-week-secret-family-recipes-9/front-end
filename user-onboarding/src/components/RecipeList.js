@@ -24,7 +24,7 @@ const RecipeList = () => {
       .catch((err) => {
         console.error({ err });
       });
-  }, []);
+  });
 
   const filteredRecipeList = (e) => {
     if (e.target.value.length === 1 && e.key === "Backspace") {
@@ -47,6 +47,7 @@ const RecipeList = () => {
             return recipe;
           }
         }
+        return searchResults;
       });
       searchResults = searchResults.filter((item) => item !== undefined);
       if (searchResults.length < 1) {
