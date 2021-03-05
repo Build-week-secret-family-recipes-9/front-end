@@ -68,7 +68,7 @@ const RecipeList = () => {
   // }
   return (
     <div>
-      <form>
+      {/* <form>
         <label htmlFor="search"></label>
         <input
           type="text"
@@ -77,7 +77,7 @@ const RecipeList = () => {
           onKeyDown={(e) => filteredRecipeList(e)}
           tabIndex="0"
         />
-      </form>
+      </form> */}
       <h3>
         Want to add a recipe? <Link to="/add-recipe">Add new recipe</Link>
       </h3>
