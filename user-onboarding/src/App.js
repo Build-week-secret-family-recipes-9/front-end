@@ -11,25 +11,12 @@ import { RecipesContext } from "./contexts/RecipesContext";
 import { axiosWithAuth } from "./utils/axiosWithAuth";
 import "./App.css";
 
-// const data = [
-//   {
-//     id: Date.now(),
-//     title: "Cheese Pizza",
-//     source: "My mom",
-//     ingredients: "Cheese, Bread",
-//     instructions: "Cook It",
-//     category: "Italian",
-//     img: "Picture",
-//   },
-// ];
-
 function App() {
   const [recipeList, setRecipeList] = useState([]);
 
   const deleteRecipe = (id) => {
-    console.log(id);
     axiosWithAuth()
-      .delete(`http://localhost:5075/api/recipes/${id}`)
+      .delete(`localhost:3000/${id}`)
       .then((res) => {
         console.log(res);
         const newList = recipeList.filter((item) => id !== item.id);

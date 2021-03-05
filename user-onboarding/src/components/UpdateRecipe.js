@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { RecipesContext } from "../contexts/RecipesContext";
+import axios from "axios";
 import { useParams, useHistory } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
@@ -20,8 +21,8 @@ const UpdateRecipe = () => {
 
   useEffect(() => {
     // make axios GET request to endpoint with id and setRecipe(res.data)
-    axiosWithAuth()
-      .get(`http://localhost:5075/api/recipes/${id}`)
+    axios
+      .get(`localhost:3000/api/auth/${id}`)
       .then((res) => {
         console.log(res.data);
         setRecipeToUpdate(res.data);
@@ -41,19 +42,18 @@ const UpdateRecipe = () => {
     // with map method returning res.data if id's match
     // push to ('/recipes')
     axiosWithAuth()
-      .put(`https://reqres.in/api/users/${id}`, recipeToUpdate)
+      .put(`localhost:3000/api/auth/${id}`, recipeToUpdate)
       .then((res) => {
         console.log(res);
-        alert("backend does not support put request");
-        // setRecipeList(
-        //   recipeList.map((item) => {
-        //     if (item.id === id) {
-        //       return res.data;
-        //     } else {
-        //       return item;
-        //     }
-        //   })
-        // );
+        setRecipeList(
+          recipeList.map((item) => {
+            if (item.id === id) {
+              return res.data;
+            } else {
+              return item;
+            }
+          })
+        );
       })
       .catch((err) => {
         console.log(err);
@@ -62,62 +62,43 @@ const UpdateRecipe = () => {
   };
   return (
     <div>
-      <h2>Edit Recipe</h2>
       <form onSubmit={onSubmit}>
-        <label htmlFopr="title">Title</label>
         <input
           placeholder="title"
-          id="title"
           name="title"
           value={recipeToUpdate.title}
           onChange={changeHandler}
         />
-        <br />
-        <label htmlFopr="source">Source</label>
         <input
-          id="source"
           placeholder="source"
           name="source"
           value={recipeToUpdate.source}
           onChange={changeHandler}
         />
-        <br />
-        <label htmlFopr="ingredients">Ingredients</label>
         <input
-          id="ingredients"
           placeholder="ingredients"
           name="ingredients"
           value={recipeToUpdate.ingredients}
           onChange={changeHandler}
         />
-        <br />
-        <label htmlFopr="instructions">Instructions</label>
         <input
-          id="instructions"
           placeholder="instructions"
           name="instructions"
           value={recipeToUpdate.instructions}
           onChange={changeHandler}
         />
-        <br />
-        <label htmlFopr="category">Category</label>
         <input
-          id="category"
           placeholder="category"
           name="category"
           value={recipeToUpdate.category}
           onChange={changeHandler}
         />
-        <br />
-        <label htmlFopr="img">Image</label>
         <input
-          id="img"
           placeholder="img"
           name="img"
           value={recipeToUpdate.img}
           onChange={changeHandler}
         />
-        <br />
         <button>Update Recipe</button>
       </form>
     </div>

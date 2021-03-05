@@ -11,7 +11,7 @@ const Home = () => {
           <p>Go to your recipes!</p>
         </div>
       </Link>
-      <Link to="/add-recipe">
+      <Link to="/new-recipe">
         <div className="link">
           <p>Create a new recipe</p>
         </div>
