@@ -1,71 +1,71 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
+// import useEffect
 import { useHistory, Link } from "react-router-dom";
-import { axiosWithAuth } from "../utils/axiosWithAuth";
+// import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 import { RecipesContext } from "../contexts/RecipesContext";
 
 const RecipeList = () => {
-  const { recipeList, setRecipeList, deleteRecipe } = useContext(
-    RecipesContext
-  );
-  const [isLoading, setIsLoading] = useState(false);
+  // add setRecipeList to deconstructed items of useContext
+  const { recipeList, deleteRecipe } = useContext(RecipesContext);
+  // const [isLoading, setIsLoading] = useState(false);
   const [filteredRecipes, setFilteredRecipes] = useState();
   const { push } = useHistory();
 
-  useEffect(() => {
-    setIsLoading(true);
-    axiosWithAuth()
-      .get("http://localhost:5075/api/recipes")
-      .then((res) => {
-        console.log(res);
-        setRecipeList(res.data);
-        setIsLoading(false);
-      })
-      .catch(
-        (err) => {
-          console.error({ err });
-        },
-        [setRecipeList]
-      );
-  });
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   axiosWithAuth()
+  //     .get("http://localhost:5075/api/recipes")
+  //     .then((res) => {
+  //       console.log(res);
+  //       setRecipeList(res.data);
+  //       setIsLoading(false);
+  //     })
+  //     .catch(
+  //       (err) => {
+  //         console.error({ err });
+  //       },
+  //       [setRecipeList]
+  //     );
+  // });
 
-  const filteredRecipeList = (e) => {
-    if (e.target.value.length === 1 && e.key === "Backspace") {
-      return setFilteredRecipes([]);
-    }
-    let filteredItems = "";
+  // const filteredRecipeList = (e) => {
+  //   if (e.target.value.length === 1 && e.key === "Backspace") {
+  //     return setFilteredRecipes([]);
+  //   }
+  //   let filteredItems = "";
 
-    if (e.target.value === "") {
-      filteredItems = e.key;
-    } else {
-      filteredItems = e.target.value;
-    }
-    let filteredList = recipeList.map((recipe) => {
-      const searchItems = [recipe.title, recipe.category, recipe.source];
-      let lastAddedItem;
-      let searchResults = searchItems.map((item) => {
-        if (item.toLowerCase().includes(filteredItems)) {
-          if (lastAddedItem !== recipe) {
-            lastAddedItem = recipe;
-            return recipe;
-          }
-        }
-      });
-      searchResults = searchResults.filter((item) => item !== undefined);
-      if (searchResults.length < 1) {
-        return;
-      } else {
-        return searchResults;
-      }
-    });
-    filteredList = filteredList.filter((item) => item !== undefined);
+  //   if (e.target.value === "") {
+  //     filteredItems = e.key;
+  //   } else {
+  //     filteredItems = e.target.value;
+  //   }
+  //   let filteredList = recipeList.map((recipe) => {
+  //     const searchItems = [recipe.title, recipe.category, recipe.source];
+  //     let lastAddedItem;
+  //     let searchResults = searchItems.map((item) => {
+  //       if (item.toLowerCase().includes(filteredItems)) {
+  //         if (lastAddedItem !== recipe) {
+  //           lastAddedItem = recipe;
+  //           return recipe;
+  //         }
+  //       }
+  //     });
+  //     searchResults = searchResults.filter((item) => item !== undefined);
+  //     if (searchResults.length < 1) {
+  //       return;
+  //     } else {
+  //       return searchResults;
+  //     }
+  //   });
+  //   filteredList = filteredList.filter((item) => item !== undefined);
 
-    setFilteredRecipes(...filteredList);
-  };
+  //   setFilteredRecipes(...filteredList);
+  // };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
   return (
     <div>
       <form>
