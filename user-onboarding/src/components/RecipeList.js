@@ -11,6 +11,7 @@ const RecipeList = () => {
   // const [isLoading, setIsLoading] = useState(false);
   const [filteredRecipes, setFilteredRecipes] = useState();
   const { push } = useHistory();
+
   setFilteredRecipes([]);
 
   // useEffect(() => {
