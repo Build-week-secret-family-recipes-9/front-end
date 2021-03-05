@@ -63,9 +63,9 @@ const RecipeList = () => {
   //   setFilteredRecipes(...filteredList);
   // };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
   return (
     <div>
       <form>
