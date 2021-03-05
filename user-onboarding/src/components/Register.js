@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import SimpleReactValidator from "simple-react-validator";
 
@@ -8,6 +8,8 @@ const Register = () => {
     username: "",
     password: "",
   });
+
+  const { push } = useHistory();
 
   const simpleValidator = new SimpleReactValidator();
 
@@ -19,14 +21,13 @@ const Register = () => {
     e.preventDefault();
     if (simpleValidator.allValid()) {
       axiosWithAuth()
-        .post(
-          "https://git.heroku.com/family-recipes-9.git/api/auth/register",
-          credentials
-        )
+        .post("http://localhost:5075/api/auth/register", credentials)
         .then((res) => {
-          console.log(res);
+          console.log(res.data);
+          localStorage.setItem("token", res.data.token);
+          push("/login");
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.error({ err }));
     } else {
       simpleValidator.showMessages();
     }
